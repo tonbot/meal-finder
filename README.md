@@ -83,3 +83,18 @@ recipe-meal-finder/
 
 - Data provided by [Spoonacular API](https://spoonacular.com/food-api).
 - Design inspired by modern culinary applications.
+
+## Deployment
+
+This project is configured for automated deployment to **GitHub Pages** using GitHub Actions.
+
+### Setup Deployment
+
+1. **Commit and Push**: Ensure you have pushed the latest changes (including the `.github/workflows/deploy.yml` file) to your `master` branch.
+2. **Enable GitHub Pages**:
+   - Go to your repository on GitHub.
+   - Navigate to **Settings > Pages**.
+   - Under **Build and deployment > Source**, select **Deploy from a branch**.
+   - Select the `gh-pages` branch (this branch is created automatically by the GitHub Action) and the `/ (root)` folder.
+   - Click **Save**.
+3. **Wait for Action**: The next time you push to `master`, the GitHub Action will automatically build and deploy your site to `https://tonbot.github.io/meal-finder/`.
