@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe & Meal Finder | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/meal-finder/assets/main-CqwnOZ4J.js"></script>
+    <link rel="modulepreload" crossorigin href="/meal-finder/assets/utils-CVAddTJ3.js">
+    <link rel="modulepreload" crossorigin href="/meal-finder/assets/RecipeData-D0GLeKtJ.js">
+    <link rel="modulepreload" crossorigin href="/meal-finder/assets/RecipeList-DTN2ZPev.js">
+    <link rel="stylesheet" crossorigin href="/meal-finder/assets/utils-Be--sMVZ.css">
+  </head>
+  <body>
+    <header id="main-header"></header>
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Find Your Next Delicious Meal</h1>
+          <p>Search thousands of recipes by name, ingredients, or diet.</p>
+          <div class="search-container">
+            <div class="search-input-wrapper">
+              <input type="text" id="recipe-search" placeholder="Search recipes (e.g., chicken, pasta)..." autocomplete="off" />
+              <div id="suggestions-dropdown" class="suggestions-dropdown"></div>
+            </div>
+            <button id="search-btn">Search</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="filters-section">
+        <div class="filters-container">
+          <div class="filter-group">
+            <label for="diet-filter">Diet:</label>
+            <select id="diet-filter">
+              <option value="">Any Diet</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="gluten-free">Gluten Free</option>
+              <option value="ketogenic">Keto</option>
+              <option value="paleo">Paleo</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="cuisine-filter">Cuisine:</label>
+            <select id="cuisine-filter">
+              <option value="">Any Cuisine</option>
+              <option value="italian">Italian</option>
+              <option value="mexican">Mexican</option>
+              <option value="asian">Asian</option>
+              <option value="american">American</option>
+              <option value="african">African</option>
+              <option value="mediterranean">Mediterranean</option>
+            </select>
+          </div>
+          <div class="filter-group">
+              <label for="ingredient-search">By Ingredients:</label>
+              <input type="text" id="ingredient-search" placeholder="e.g. apple, flour, sugar" />
+              <button id="ingredient-search-btn">Find by Ingredients</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="recipes-display">
+        <h2 id="results-title">Featured Recipes</h2>
+        <ul class="recipe-list" id="recipe-list">
+          <!-- Recipes will be injected here -->
+          <li class="loading-placeholder">Loading recipes...</li>
+        </ul>
+      </section>
+    </main>
+    <footer id="main-footer"></footer>
+  </body>
+</html>
