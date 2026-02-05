@@ -90,11 +90,21 @@ This project is configured for automated deployment to **GitHub Pages** using Gi
 
 ### Setup Deployment
 
-1. **Commit and Push**: Ensure you have pushed the latest changes (including the `.github/workflows/deploy.yml` file) to your `master` branch.
-2. **Enable GitHub Pages**:
+1. **Add GitHub Secret**:
+   - Go to your repository on GitHub.
+   - Navigate to **Settings > Secrets and variables > Actions**.
+   - Click **New repository secret**.
+   - **Name**: `VITE_SPOONACULAR_API_KEY`
+   - **Value**: Paste your Spoonacular API Key.
+   - Click **Add secret**.
+2. **Commit and Push**: Ensure you have pushed the latest changes (including the `.github/workflows/deploy.yml` file) to your `master` branch.
+3. **Enable GitHub Pages**:
    - Go to your repository on GitHub.
    - Navigate to **Settings > Pages**.
    - Under **Build and deployment > Source**, select **Deploy from a branch**.
-   - Select the `gh-pages` branch (this branch is created automatically by the GitHub Action) and the `/ (root)` folder.
+   - Select the `gh-pages` branch (this branch is created automatically by the GitHub Action after your first push) and the `/ (root)` folder.
    - Click **Save**.
-3. **Wait for Action**: The next time you push to `master`, the GitHub Action will automatically build and deploy your site to `https://tonbot.github.io/meal-finder/`.
+4. **Wait for Action**: The next time you push to `master`, the GitHub Action will automatically build and deploy your site to `https://tonbot.github.io/meal-finder/`.
+
+> [!NOTE]
+> If you currently see your `README.md` content at the URL, it's because GitHub Pages is serving the `master` branch by default. Once you follow the steps above to switch the source to the `gh-pages` branch, the built application will appear.
