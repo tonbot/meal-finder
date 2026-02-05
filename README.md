@@ -4,7 +4,7 @@ A modern, responsive web application for finding delicious cooking recipes based
 
 ## Features
 
-- **Recipe Search**: Search thousands of recipes by name or keyword.
+- **Smart search**: Real-time suggestions (autocomplete) as you type. It handles partial matches and misspellings, helping you find exactly what you're looking for (e.g., "Jollof Rice").
 - **Ingredient-Based Search**: Enter what's in your pantry to find matching meals.
 - **Advanced Filters**: Filter by diet (vegan, keto, vegetarian, etc.) or cuisine (Italian, Mexican, Asian, etc.).
 - **Recipe Details**: View full ingredients, instructions, cooking time, and nutrition summary.
@@ -34,11 +34,11 @@ A modern, responsive web application for finding delicious cooking recipes based
    ```
 
 2. **Configure API Key**:
-   Create a `.env` file in the root (or use the provided `src/.env.sample` as a template) and add your API Key:
+   Create a `.env` file in the `src/` directory and add your Spoonacular API Key:
    ```
    VITE_SPOONACULAR_API_KEY=your_actual_key_here
    ```
-   *Note: In the current implementation, the API key is placed directly in `RecipeData.mjs`. It is recommended to use environment variables for production.*
+   *Note: Using the `VITE_` prefix allows the environment variable to be accessed securely within the frontend code.*
 
 3. **Start Development Server**:
    ```bash
