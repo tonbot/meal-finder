@@ -1,4 +1,4 @@
-import{r as o,g as n,s as l,u as c}from"./utils-CVAddTJ3.js";function v(s){const t=(n("favorites")||[]).some(i=>i.id===s.id),e=t?"saved":"",a=t?"❤️ Saved":"♡ Save to Favorites";return`
+import{r as o,g as n,s as l,u as c}from"./utils-CcggRpJ1.js";function v(s){const t=(n("favorites")||[]).some(i=>i.id===s.id),e=t?"saved":"",a=t?"❤️ Saved":"♡ Save to Favorites";return`
     <li class="recipe-card">
         <a href="/recipe-details/index.html?recipe=${s.id}">
             <img src="${s.image}" alt="${s.title}" loading="lazy">
