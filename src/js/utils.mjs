@@ -46,16 +46,26 @@ export function renderWithTemplate(template, parentElement, data, callback) {
 
 // load Header and Footer
 export async function loadHeaderFooter() {
-    try {
-        const headerTemplate = await loadTemplate("/public/partials/header.html");
-        const footerTemplate = await loadTemplate("/public/partials/footer.html");
-        
-        const headerElement = document.querySelector("#main-header");
-        const footerElement = document.querySelector("#main-footer");
+    const headerElement = document.querySelector("#main-header");
+    const footerElement = document.querySelector("#main-footer");
 
+    try {
+        const baseUrl = import.meta.env.BASE_URL;
+        const headerTemplate = await loadTemplate(baseUrl + "partials/header.html");
+        const footerTemplate = await loadTemplate(baseUrl + "partials/footer.html");
+        
         renderWithTemplate(headerTemplate, headerElement);
         renderWithTemplate(footerTemplate, footerElement);
         
+        // Update links in header/footer to include base path
+        const allLinks = [...headerElement.querySelectorAll("a"), ...footerElement.querySelectorAll("a")];
+        allLinks.forEach(link => {
+            const href = link.getAttribute("href");
+            if (href && href.startsWith("/") && !href.startsWith(baseUrl)) {
+                link.setAttribute("href", baseUrl + href.substring(1));
+            }
+        });
+
         // Update year in footer
         const yearEl = document.querySelector("#year");
         if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -64,8 +74,11 @@ export async function loadHeaderFooter() {
         updateFavoritesCount();
     } catch (err) {
         console.error("Error loading header/footer:", err);
+        if (headerElement) headerElement.innerHTML = `<p style="color:red; padding:1rem;">Error loading header: ${err.message} (Path: ${import.meta.env.BASE_URL}partials/header.html)</p>`;
+        if (footerElement) footerElement.innerHTML = `<p style="color:red; padding:1rem;">Error loading footer: ${err.message}</p>`;
     }
 }
+
 
 // get URL parameters
 export function getParam(param) {
