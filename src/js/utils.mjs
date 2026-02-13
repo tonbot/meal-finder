@@ -32,12 +32,15 @@ export async function loadTemplate(path) {
         const template = await res.text();
         return template;
     } else {
-        throw new Error("Could not load template");
+        const errorMsg = `Could not load template at ${path}: ${res.status} ${res.statusText}`;
+        console.error(errorMsg);
+        throw new Error(errorMsg);
     }
 }
 
 // render with template
 export function renderWithTemplate(template, parentElement, data, callback) {
+    if (!parentElement) return;
     parentElement.insertAdjacentHTML("afterbegin", template);
     if (callback) {
         callback(data);
@@ -50,19 +53,31 @@ export async function loadHeaderFooter() {
     const footerElement = document.querySelector("#main-footer");
 
     try {
-        const baseUrl = import.meta.env.BASE_URL;
-        const headerTemplate = await loadTemplate(baseUrl + "partials/header.html");
-        const footerTemplate = await loadTemplate(baseUrl + "partials/footer.html");
+        const baseUrl = import.meta.env.BASE_URL || "/";
+        // Ensure path doesn't have double slashes if baseUrl ends with /
+        const headerPath = (baseUrl + "partials/header.html").replace(/\/+/g, "/");
+        const footerPath = (baseUrl + "partials/footer.html").replace(/\/+/g, "/");
+
+        const headerTemplate = await loadTemplate(headerPath);
+        const footerTemplate = await loadTemplate(footerPath);
         
         renderWithTemplate(headerTemplate, headerElement);
         renderWithTemplate(footerTemplate, footerElement);
         
         // Update links in header/footer to include base path
-        const allLinks = [...headerElement.querySelectorAll("a"), ...footerElement.querySelectorAll("a")];
+        const allLinks = [
+            ...(headerElement ? headerElement.querySelectorAll("a") : []),
+            ...(footerElement ? footerElement.querySelectorAll("a") : [])
+        ];
+        
         allLinks.forEach(link => {
             const href = link.getAttribute("href");
-            if (href && href.startsWith("/") && !href.startsWith(baseUrl)) {
-                link.setAttribute("href", baseUrl + href.substring(1));
+            if (href && href.startsWith("/")) {
+                // If it's an absolute path within the site, prefix it with baseUrl
+                // But only if it doesn't already start with the baseUrl
+                if (!href.startsWith(baseUrl)) {
+                    link.setAttribute("href", (baseUrl + href.substring(1)).replace(/\/+/g, "/"));
+                }
             }
         });
 
@@ -73,11 +88,13 @@ export async function loadHeaderFooter() {
         // Update favorites count
         updateFavoritesCount();
     } catch (err) {
-        console.error("Error loading header/footer:", err);
-        if (headerElement) headerElement.innerHTML = `<p style="color:red; padding:1rem;">Error loading header: ${err.message} (Path: ${import.meta.env.BASE_URL}partials/header.html)</p>`;
-        if (footerElement) footerElement.innerHTML = `<p style="color:red; padding:1rem;">Error loading footer: ${err.message}</p>`;
+        console.error("Error in loadHeaderFooter:", err);
+        if (headerElement && !headerElement.innerHTML) {
+            headerElement.innerHTML = `<p style="color:red; padding:1rem; text-align:center;">Error loading header: ${err.message}</p>`;
+        }
     }
 }
+
 
 
 // get URL parameters

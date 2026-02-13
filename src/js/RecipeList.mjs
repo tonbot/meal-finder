@@ -5,9 +5,12 @@ export function recipeCardTemplate(recipe) {
     const saveClass = isSaved ? "saved" : "";
     const saveText = isSaved ? "❤️ Saved" : "♡ Save to Favorites";
 
+    const baseUrl = import.meta.env.BASE_URL || "/";
+    const detailLink = (baseUrl + `recipe-details/index.html?recipe=${recipe.id}`).replace(/\/+/g, "/");
+
     return `
     <li class="recipe-card">
-        <a href="/recipe-details/index.html?recipe=${recipe.id}">
+        <a href="${detailLink}">
             <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
             <div class="recipe-card-content">
                 <h3>${recipe.title}</h3>
